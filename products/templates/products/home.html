@@ -13,8 +13,13 @@
     <h1>{{ product.title }}</h1>
     <p>{{ product.summary }}</p>
   </div>
+
   <div class="col-4">
-    <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Upvote {{ product.votes_total }}</button></a>
+    <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-sm"><span class="oi oi-caret-top"></span> </button></a>
+    <br />
+      {{ product.votes_total }}
+    <br />
+    <a href="javascript:{document.getElementById('downvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-sm"><span class="oi oi-caret-bottom"></span> </button></a>
   </div>
 </div>
 
@@ -22,6 +27,14 @@
   {% csrf_token %}
   <input type="hidden">
 </form>
+
+
+<form id="downvote{{ product.id }}" method="POST" action="{% url 'downvote' product.id %}">
+{% csrf_token %}
+<input type="hidden">
+</form>
+
+
 <hr>
 
 {% endfor %}
